@@ -18,7 +18,7 @@ This is a demo project for the coding test.
 - [Improvement](#Improvement)
 
 ## Structure
-```
+``` lua
 payment_gateway_demo
 ├── module-core  -- service
 ├── module-web   -- rest 
@@ -48,7 +48,7 @@ visit http://localhost:8080/api/swagger-ui.html after starting the application
 
 The validator can be employed a class-level custom annotation, so the payment business logic will not depend on the validation.
 
-```
+``` java
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
@@ -59,7 +59,7 @@ public @interface CreditCardNumberValidator {
 ```
 
 Now Spring AOP will intercept the request and validate the credit card number before the payment method is invoked
-```
+``` java
 import org.aspectj.lang.annotation.Before;
 
 @Before(value = "@annotation(creditCardNumberValidator)", 
