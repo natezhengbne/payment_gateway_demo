@@ -2,7 +2,6 @@ package demo.nate.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import demo.nate.constant.CreditCardType;
 import demo.nate.service.CreditCardValidatorFactory;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -24,15 +23,15 @@ public class PaymentController {
     @ApiOperation(value = "Pay the order")
     @RequestMapping(value = "/pay", method = {RequestMethod.POST})
     public ObjectNode pay(
-            @ApiParam(name = "orderId", value = "Order Id")
+            @ApiParam(name = "orderId", value = "Order Id", defaultValue = "testOrderId")
             @RequestParam(value = "orderId") String orderId,
-            @ApiParam(name = "userId", value = "User Id")
+            @ApiParam(name = "userId", value = "User Id", defaultValue = "testUserId")
             @RequestParam(value = "userId") String userId,
             @ApiParam(name = "cardType", value = "Card Type")
             @RequestParam(value = "cardType") String cardType,
             @ApiParam(name = "cardNum", value = "Credit Card Num")
             @RequestParam(value = "cardNum") String cardNum,
-            @ApiParam(name = "secureCode", value = "Secure Code")
+            @ApiParam(name = "secureCode", value = "Secure Code", defaultValue= "testSecureCode")
             @RequestParam(value = "secureCode") String secureCode
     ){
 
