@@ -14,30 +14,21 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import javax.servlet.http.HttpServletRequest;
 
 @Slf4j
-@RestControllerAdvice
-public class ResponseHandler implements ResponseBodyAdvice<Object> {
+@RestControllerAdvice(basePackages = "demo.nate")
+public class ResponseHandler implements ResponseBodyAdvice<ObjectNode> {
     @Override
     public boolean supports(MethodParameter returnType, Class converterType) {
-        return true;
+        return !returnType.getMethod().getName().equalsIgnoreCase("exceptionsHandler");
     }
 
     @Override
-    public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType,
+    public ObjectNode beforeBodyWrite(ObjectNode body, MethodParameter returnType, MediaType selectedContentType,
                                   Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if (body instanceof ObjectNode) {
-            ObjectNode jsonObject=(ObjectNode)body;
-            if(jsonObject.has("error")){
-                return body;
-            }
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            ObjectNode objectNode = objectMapper.createObjectNode();
-            objectNode.set("body", jsonObject);
-            objectNode.put("status", 1);
-            return objectNode;
-        }
-
-        return body;
+        ObjectNode objectNode = new ObjectMapper().createObjectNode();
+        objectNode.set("body", body);
+        objectNode.put("status", 1);
+        return objectNode;
     }
 
     @ExceptionHandler(value = {
@@ -48,7 +39,7 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
         objectNode.put("error", e.getMessage());
         objectNode.put("status", 0);
 
-        log.error("Web Error: "+request.getRequestURI(),e);
+        log.error("HttpServletRequest Error: "+request.getRequestURI(),e);
 
         return objectNode;
     }
