@@ -32,7 +32,7 @@ If you use Maven, run the following command in a terminal window (in the /paymen
 ./mvnw clean package
 ```
 
-The web configuration in payment_gateway_demo/module-web/src/main/resources/application.properties file
+The web configuration in payment_gateway_demo/module-web/src/main/resources/application.yml file
 
 
 ## Usage
