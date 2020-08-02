@@ -45,13 +45,7 @@ class PaymentControllerTest extends BaseUnitTest {
     void testFailedByGetMethod() throws JsonProcessingException {
         ResponseEntity<String> response = template.getForEntity(base.toString(),
                 String.class);
-        assertTrue(response.getStatusCode().is2xxSuccessful());
-
-        ObjectMapper mapper = new ObjectMapper();
-        JsonNode actualObj = mapper.readTree(response.getBody());
-        int status = actualObj.get("status").asInt();
-        assertEquals(0, status);
-
+        assertTrue(response.getStatusCode().is4xxClientError());
     }
 
     @Test
