@@ -26,9 +26,7 @@ public class ResponseHandler implements ResponseBodyAdvice<ObjectNode> {
                                   Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
 
         ObjectNode objectNode = new ObjectMapper().createObjectNode();
-        if(body!=null){
-            objectNode.set("body", body);
-        }
+        objectNode.set("body", body);
         objectNode.put("status", 1);
         return objectNode;
     }
