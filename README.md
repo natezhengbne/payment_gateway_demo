@@ -18,7 +18,7 @@ This is a demo project for the coding test.
 - [Improvement](#Improvement)
 
 ## Structure
-``` lua
+```
 payment_gateway_demo
 ├── module-core  -- service
 ├── module-web   -- rest 
